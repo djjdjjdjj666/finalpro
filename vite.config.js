@@ -15,4 +15,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server: {
+  	//vue3 vite配置热更新不用手动刷新
+    hmr: true
+  }
 })

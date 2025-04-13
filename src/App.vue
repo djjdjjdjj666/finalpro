@@ -1,9 +1,8 @@
 <template>
  
 
-  <div>
-  <MainMenu/>
- </div>
+ <Container />
+
 
 
 
@@ -11,17 +10,16 @@
 
 
 <script>
-import MainMenu from './components/MainMenu.vue';
-
+import Container from './components/Container.vue';
 export default {
   name: 'App',
   components:{
-   MainMenu
+   Container
   }
 }
 </script>
 
-<style scoped>
 
+<style scoped>
 
 </style>

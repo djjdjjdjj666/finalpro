@@ -50,7 +50,29 @@ switch(newPath) {
 
 })
 
-onMounted
+onMounted(() => {
+switch(router.path) {
+
+  case '/container/mainmenu/learn':
+    axios.get('http://localhost:8080/selectLearnCategory').then((response) => {
+      console.log(response.data);
+      siteItem.value = response.data;
+    });
+    break; // 学习
+
+  case '/container/mainmenu/entertain':
+    axios.get('http://localhost:8080/selectEntertainCategory').then((response) => {
+      siteItem.value = response.data;
+    });
+    break; // 娱乐
+
+  case '/container/mainmenu/tool':
+    axios.get('http://localhost:8080/selectToolCategory').then((response) => {
+        siteItem.value = response.data;
+      });
+    break; // 工具
+    }
+})
 
   
 

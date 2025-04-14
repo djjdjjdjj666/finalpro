@@ -12,7 +12,7 @@
         router
       >
 
-      <el-sub-menu index="2">
+      <el-sub-menu index="11">
         <template #title>
           <el-icon><icon-menu /></el-icon>
           <span>常用网址</span>
@@ -44,9 +44,9 @@
           <span>常用网址</span>
         </div>
         <div class="header-right">
-          <el-button type="text" @click="openLoginDialog">
+          <!-- <el-button type="text" @click="openLoginDialog">
             <el-icon><user /></el-icon> 登录
-          </el-button>
+          </el-button> -->
           <!-- 设置下拉菜单 -->
           <el-dropdown @command="handleCommand">
             <el-button type="text">
@@ -109,7 +109,7 @@ const toggleCollapse = () => {
 };
 
 // 当前激活菜单
-const activeMenu = ref("/");
+const activeMenu = ref("/container/mainmenu/learn");
 
 // 登录对话框
 const loginVisible = ref(false);

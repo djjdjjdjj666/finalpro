@@ -56,7 +56,6 @@
               <el-dropdown-menu>
                 <el-dropdown-item command="add">添加</el-dropdown-item>
                 <el-dropdown-item command="delete">删除</el-dropdown-item>
-                <el-dropdown-item>退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>

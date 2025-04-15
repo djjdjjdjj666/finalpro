@@ -101,7 +101,7 @@
           // 这里可以添加实际的提交请求代码，例如使用 axios 发送请求
           switch(valueFirst.value) {
             case 'learn':
-                axios.post('http://localhost:8080/insertSite_Learn', formData.value)
+                axios.post('/api/insertSite_Learn', formData.value)
                 .then(response => {
                   console.log('提交成功:', response.data);
                 })
@@ -113,7 +113,7 @@
                 resetForm();
                 break;
             case 'entertain':
-              axios.post('http://localhost:8080/insertSite_Entertain', formData.value)
+              axios.post('/api/insertSite_Entertain', formData.value)
                 .then(response => {
                   console.log('提交成功:', response.data);
                 })
@@ -125,7 +125,7 @@
                 resetForm();
                 break;
             case 'tool':
-              axios.post('http://localhost:8080/insertSite_Tool', formData.value)
+              axios.post('/api/insertSite_Tool', formData.value)
                 .then(response => {
                   console.log('提交成功:', response.data);
                 })
@@ -157,21 +157,21 @@
     watch(valueFirst, (newValue) => {
         switch(newValue) {
           case 'learn':
-            axios.get('http://localhost:8080/selectLearnCategory')
+            axios.get('/api/selectLearnCategory')
             .then(response => {
               console.log('获取学习目录成功:', response.data);
               optionsSecond.value = response.data;
             })
             break;
           case 'entertain':
-            axios.get('http://localhost:8080/selectEntertainCategory')
+            axios.get('/api/selectEntertainCategory')
             .then(response => {
               console.log('获取娱乐目录成功:', response.data);
               optionsSecond.value = response.data;
             })
             break;
           case 'tool':
-            axios.get('http://localhost:8080/selectToolCategory')
+            axios.get('/api/selectToolCategory')
             .then(response => {
               console.log('获取工具目录成功:', response.data);
               optionsSecond.value = response.data;

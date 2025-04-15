@@ -29,20 +29,20 @@ watch(() => router.path, (newPath) => {
 switch(newPath) {
 
   case '/container/mainmenu/learn':
-    axios.get('http://localhost:8080/selectLearnCategory').then((response) => {
+    axios.get('/api/selectLearnCategory').then((response) => {
       console.log(response.data);
       siteItem.value = response.data;
     });
     break; // 学习
 
   case '/container/mainmenu/entertain':
-    axios.get('http://localhost:8080/selectEntertainCategory').then((response) => {
+    axios.get('/api/selectEntertainCategory').then((response) => {
       siteItem.value = response.data;
     });
     break; // 娱乐
 
   case '/container/mainmenu/tool':
-    axios.get('http://localhost:8080/selectToolCategory').then((response) => {
+    axios.get('/api/selectToolCategory').then((response) => {
         siteItem.value = response.data;
       });
     break; // 工具
@@ -54,20 +54,20 @@ onMounted(() => {
 switch(router.path) {
 
   case '/container/mainmenu/learn':
-    axios.get('http://localhost:8080/selectLearnCategory').then((response) => {
+    axios.get('/api/selectLearnCategory').then((response) => {
       console.log(response.data);
       siteItem.value = response.data;
     });
     break; // 学习
 
   case '/container/mainmenu/entertain':
-    axios.get('http://localhost:8080/selectEntertainCategory').then((response) => {
+    axios.get('/api/selectEntertainCategory').then((response) => {
       siteItem.value = response.data;
     });
     break; // 娱乐
 
   case '/container/mainmenu/tool':
-    axios.get('http://localhost:8080/selectToolCategory').then((response) => {
+    axios.get('/api/selectToolCategory').then((response) => {
         siteItem.value = response.data;
       });
     break; // 工具

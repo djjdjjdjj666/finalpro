@@ -62,7 +62,7 @@
     if (!formEl) return;
     formEl.validate((valid) => {
       if (valid) {
-        axios.post('http://localhost:8080/login', loginForm).then((response) => {
+        axios.post('/api/login', loginForm).then((response) => {
           if (response.data.token) {
             localStorage.setItem('token', response.data.token)
             ElMessage.success('登录成功！');

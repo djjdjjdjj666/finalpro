@@ -22,9 +22,9 @@
         </el-form-item>
         <el-form-item label="待删除网址列表">
             <div v-if="urls.length > 0">
-                <el-checkbox-group v-model="selectedUrls">
-                    <el-checkbox v-for="(url, index) in urls" :key="index" :label="url">{{ url.name }}</el-checkbox>
-                </el-checkbox-group>
+                <el-radio-group v-model="selectedUrl">
+                    <el-radio v-for="(url, index) in urls" :key="index" :label="url">{{ url.name }}</el-radio>
+                </el-radio-group>
             </div>
             <div v-else>
                 <p>当前二级目录下暂无网址</p>
@@ -51,10 +51,16 @@ const optionsFirst = [
 
 const optionsSecond = ref([]);
 const urls = ref([]);
-const selectedUrls = ref([]);
+const selectedUrl = ref();
 
 const valueFirst = ref('');
 const valueSecond = ref('');
+
+const deleteData = ref({
+    name: '',
+    url: '',
+    type: ''
+});
 
 const router = useRouter();
 
@@ -74,40 +80,38 @@ const resetForm = () => {
 
 // 提交表单（删除选中网址）
 const submitForm = () => {
-    if (selectedUrls.value.length === 0) {
+    if (selectedUrl.value.length === 0) {
         ElMessage.warning('请至少选择一个网址进行删除');
         return;
     }
-    const deletePromises = selectedUrls.value.map(url => {
         let deleteUrl = '';
         switch (valueFirst.value) {
             case 'learn':
-                deleteUrl = `http://localhost:8080/deleteSite_Learn?url=${url}`;
+                deleteUrl = '/api/deleteSite_Learn';
                 break;
             case 'entertain':
-                deleteUrl = `http://localhost:8080/deleteSite_Entertain?url=${url}`;
+                deleteUrl = '/api/deleteSite_Entertain';
                 break;
             case 'tool':
-                deleteUrl = `http://localhost:8080/deleteSite_Tool?url=${url}`;
+                deleteUrl = '/api/deleteSite_Tool'
                 break;
         }
-        return axios.delete(deleteUrl);
-    });
-    Promise.all(deletePromises)
-      .then(() => {
-            ElMessage.success('删除成功');
-            resetForm();
-        })
-      .catch(error => {
-            ElMessage.error('删除失败:' + error.message);
-        });
+        deleteData.value = {name: selectedUrl.value.name}
+        axios.post(deleteUrl, deleteData.value)
+            .then(response => {
+                    console.log('删除网址成功:', response.data);
+                    ElMessage.success('删除成功！');
+                    // 删除成功后可以刷新列表或进行其他操作
+                    router.go(-1);
+                })
+    
 };
 
 // 监听一级目录的变化，动态获取二级目录
 watch(valueFirst, (newValue) => {
     switch (newValue) {
         case 'learn':
-            axios.get('http://localhost:8080/selectLearnCategory')
+            axios.get('/api/selectLearnCategory')
               .then(response => {
                     console.log('获取学习目录成功:', response.data);
                     optionsSecond.value = response.data;
@@ -115,7 +119,7 @@ watch(valueFirst, (newValue) => {
                 });
             break;
         case 'entertain':
-            axios.get('http://localhost:8080/selectEntertainCategory')
+            axios.get('/api/selectEntertainCategory')
               .then(response => {
                     console.log('获取娱乐目录成功:', response.data);
                     optionsSecond.value = response.data;
@@ -123,7 +127,7 @@ watch(valueFirst, (newValue) => {
                 });
             break;
         case 'tool':
-            axios.get('http://localhost:8080/selectToolCategory')
+            axios.get('/api/selectToolCategory')
               .then(response => {
                     console.log('获取工具目录成功:', response.data);
                     optionsSecond.value = response.data;
@@ -140,13 +144,13 @@ watch(valueSecond, (newValue) => {
     let getUrl = '';
     switch (valueFirst.value) {
         case 'learn':
-            getUrl = `http://localhost:8080/selectTypeSite_Learn`;
+            getUrl = `/api/selectTypeSite_Learn`;
             break;
         case 'entertain':
-            getUrl = `http://localhost:8080/selectTypeSite_entertain`;
+            getUrl = `/api/selectTypeSite_Entertain`;
             break;
         case 'tool':
-            getUrl = `http://localhost:8080/selectTypeSite_Tool`;
+            getUrl = `/api/selectTypeSite_Tool`;
             break;
     }
     axios.post(getUrl, {type:newValue})
